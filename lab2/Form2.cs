@@ -13,7 +13,13 @@ namespace lab2
 {
     public partial class Form2 : Form
     {
-        int cena;
+        public static Form2 form2instance;
+        public int cena;
+        public Form2()
+        {
+            InitializeComponent();
+            form2instance = this;
+        }
 
         //private void Form2_load(object sender, EventArgs e)
         //{
@@ -39,45 +45,43 @@ namespace lab2
             //check
             if(checkBox1.Checked)
             {
-                cena += 100;
+                cena += 110;
             }
-            else if (checkBox2.Checked)
+            if (checkBox2.Checked)
             {
                 cena += 130;
             }
-            else if(checkBox3.Checked)
+            if(checkBox3.Checked)
             {
                 cena += 150;
             }
+            if (checkBox4.Checked)
+            {
+                cena += 200;
+            }
 
             //combo
-            object index;
-            index = comboBox1.SelectedItem;
             //Convert.ToInt32(index);
 
-            if(index.Equals(0))
+            if (comboBox1.SelectedIndex.Equals(0))
             {
                 cena += 1000;
             }
-            else if(index.Equals(1))
+            else if(comboBox1.SelectedIndex.Equals(1))
             {
                 cena += 1500;
             }
-            else if(index.Equals(2))
+            else if(comboBox1.SelectedIndex.Equals(2))
             {
                 cena += 2000;
             }
-            else if(index.Equals (3))
+            else if(comboBox1.SelectedIndex.Equals (3))
             {
                 cena += 2200;
             }
 
             label3.Text=String.Format("{0:00}", cena);
 
-        }
-        public Form2()
-        {
-            InitializeComponent();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -98,11 +102,10 @@ namespace lab2
         {
             update_ceny();
         }
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
         {
             update_ceny();
         }
-
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
@@ -121,8 +124,17 @@ namespace lab2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //cena += getcena();
-            //setcena(cena);
+            Form1.form1instance.cena -= Form1.form1instance.p_cena_k;
+            Form1.form1instance.cena += cena;
+            Form1.form1instance.p_cena_k = cena;
+            Form1.form1instance.l1.Text = String.Format("{0:00}", Form1.form1instance.cena);
+            Close();
         }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
